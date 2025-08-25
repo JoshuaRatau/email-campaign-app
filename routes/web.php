@@ -21,5 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::resource('contact-lists', \App\Http\Controllers\ContactListController::class)->except(['show']);
+
 
 require __DIR__.'/auth.php';
