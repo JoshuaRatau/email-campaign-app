@@ -23,5 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::resource('contact-lists', \App\Http\Controllers\ContactListController::class)->except(['show']);
 
+Route::resource('contacts', \App\Http\Controllers\ContactController::class)->except(['show','edit','update']);
+
 
 require __DIR__.'/auth.php';
