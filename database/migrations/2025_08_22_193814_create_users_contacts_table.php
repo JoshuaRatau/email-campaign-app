@@ -6,25 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('users_contacts', function (Blueprint $table) {
-        $table->id();
-    $table->foreignId('contact_list_id')->constrained()->cascadeOnDelete();
-    $table->string('name');
-    $table->string('email');
-    $table->timestamps();
-});
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('contact_list_id')
+                  ->constrained('contact_lists')   // explicit table name
+                  ->cascadeOnDelete();
+            $table->string('name');
+            $table->string('email');
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('users_contacts');
+        Schema::dropIfExists('contacts');
     }
 };

@@ -1,14 +1,18 @@
 <?php
 
+// app/Http/Controllers/DashboardController.php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\UsersContactList;
+use App\Models\Campaign;
 
-class DashboardController extends Controller {
-    public function index() {
+class DashboardController extends Controller
+{
+    public function index()
+    {
         return view('dashboard', [
-            'campaigns' => \App\Models\Campaign::with('contactList')->latest()->get(),
-            'contactLists' => \App\Models\ContactList::withCount('contacts')->get(),
+            'campaigns'    => Campaign::with('contactList')->latest()->get(),
+            'contactLists' => UsersContactList::withCount('contacts')->get(),
         ]);
     }
 }

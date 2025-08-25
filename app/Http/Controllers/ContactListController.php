@@ -2,63 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UsersContactList;
 use Illuminate\Http\Request;
 
 class ContactListController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     *  GET  /contact-lists
+     *  (not used in current flow, kept for completeness)
      */
     public function index()
     {
-        //
+        $lists = UsersContactList::withCount('contacts')->latest()->get();
+        return view('contact-lists.index', compact('lists'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     *  GET  /contact-lists/create
      */
     public function create()
     {
-        //
+        return view('contact-lists.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     *  POST  /contact-lists
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        UsersContactList::create($request->only('name'));
+
+        return redirect()->route('dashboard')
+                         ->with('success', 'Contact list created.');
     }
 
     /**
-     * Display the specified resource.
+     *  GET  /contact-lists/{id}/edit
      */
-    public function show(string $id)
+    public function edit(UsersContactList $contactList)
     {
-        //
+        return view('contact-lists.edit', compact('contactList'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     *  PUT/PATCH  /contact-lists/{id}
      */
-    public function edit(string $id)
+    public function update(Request $request, UsersContactList $contactList)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $contactList->update($request->only('name'));
+
+        return redirect()->route('dashboard')
+                         ->with('success', 'Contact list updated.');
     }
 
     /**
-     * Update the specified resource in storage.
+     *  DELETE  /contact-lists/{id}
      */
-    public function update(Request $request, string $id)
+    public function destroy(UsersContactList $contactList)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $contactList->delete();
+        return redirect()->route('dashboard')
+                         ->with('success', 'Contact list deleted.');
     }
 }
