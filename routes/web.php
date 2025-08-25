@@ -25,7 +25,14 @@ Route::resource('contact-lists', \App\Http\Controllers\ContactListController::cl
 
 Route::resource('contacts', \App\Http\Controllers\ContactController::class)->except(['show','edit','update']);
 
-    Route::resource('campaigns', \App\Http\Controllers\CampaignController::class)->except(['show']);
+Route::resource('campaigns', \App\Http\Controllers\CampaignController::class)->except(['show']);
+
+
+//API
+
+Route::get('campaigns', [\App\Http\Controllers\Api\CampaignApiController::class, 'index']);
+Route::get('campaigns/with-contacts', [\App\Http\Controllers\Api\CampaignApiController::class, 'withContacts']);
+Route::get('contacts', [\App\Http\Controllers\Api\ContactApiController::class, 'index']);
 
 
 require __DIR__.'/auth.php';
