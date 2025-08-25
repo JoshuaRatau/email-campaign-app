@@ -52,8 +52,10 @@
                        class="btn btn-outline-primary btn-sm">
                         + Add Contact
                     </a>
-                    <a href="{{ route('contact-lists.edit', $list) }}"
-                       class="btn btn-outline-secondary btn-sm">Edit</a>
+                  <a href="{{ route('contact-lists.contacts', $list) }}"
+   class="btn btn-outline-info btn-sm">
+   View Contacts
+</a>
                 </div>
             </li>
         @empty

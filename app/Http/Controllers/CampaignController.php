@@ -34,12 +34,11 @@ class CampaignController extends Controller
         return redirect()->route('dashboard')->with('success', 'Campaign created.');
     }
 
-    public function edit(Campaign $campaign)
-    {
-        $contactLists = ContactList::orderBy('name')->get();
-        return view('campaigns.edit', compact('campaign', 'usercontactLists'));
-    }
-
+  public function edit(Campaign $campaign)
+{
+    $contactLists = UsersContactList::orderBy('name')->get();
+    return view('campaigns.edit', compact('campaign', 'contactLists'));
+}
     public function update(Request $request, Campaign $campaign)
     {
         $validated = $request->validate([

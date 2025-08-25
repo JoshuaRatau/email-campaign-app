@@ -72,4 +72,11 @@ class ContactListController extends Controller
         return redirect()->route('dashboard')
                          ->with('success', 'Contact list deleted.');
     }
+
+    //View
+    public function showContacts(UsersContactList $contactList)
+{
+    $contacts = $contactList->contacts()->latest()->get();
+    return view('contact-lists.contacts', compact('contactList', 'contacts'));
+}
 }
