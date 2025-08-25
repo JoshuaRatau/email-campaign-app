@@ -25,5 +25,7 @@ Route::resource('contact-lists', \App\Http\Controllers\ContactListController::cl
 
 Route::resource('contacts', \App\Http\Controllers\ContactController::class)->except(['show','edit','update']);
 
+    Route::resource('campaigns', \App\Http\Controllers\CampaignController::class)->except(['show']);
+
 
 require __DIR__.'/auth.php';
